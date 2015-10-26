@@ -22,12 +22,13 @@ import java.util.List;
  */
 public class BattleHelper {
     private final String token;
-    private final String serverUrl = "http://localhost:8080";
+    private final String serverUrl;
     private ObjectMapper mapper;
     private HttpClient client;
 
-    public BattleHelper(String token) {
+    public BattleHelper(String token, String serverUrl) {
         this.token = token;
+        this.serverUrl = serverUrl;
         this.mapper = new ObjectMapper();
         this.client = HttpClientBuilder.create().build();
     }
@@ -88,7 +89,7 @@ public class BattleHelper {
                     throw new CooldownException(obj.get("battleError").get("behaviour").asText(), (long) (obj.get("BattleError").get("remaining").asLong() / Math.pow(10, 6)));
                 default:
                     // TODO encapsulate the received message
-                    throw new Exception("default exception");
+                    throw new InfoException("default exception");
             }
         }
 
