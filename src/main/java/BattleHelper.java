@@ -79,11 +79,11 @@ public class BattleHelper {
             JsonNode obj = mapper.readTree(response.getEntity().getContent());
             switch (obj.get("type").asText()) {
                 case "CooldownError":
-                    throw new CooldownException(obj.get("battleError").get("message").asText(), (long) (obj.get("BattleError").get("remaining").asLong() / Math.pow(10, 6)));
+                    throw new CooldownException(obj.get("battleError").get("message").asText(), (long) (obj.get("battleError").get("remaining").asLong() / Math.pow(10, 6)));
                 case "InfoError":
                     throw new InfoException(obj.get("battleError").get("message").asText());
                 case "BehaviourError":
-                    throw new CooldownException(obj.get("battleError").get("behaviour").asText(), (long) (obj.get("BattleError").get("remaining").asLong() / Math.pow(10, 6)));
+                    throw new CooldownException(obj.get("battleError").get("behaviour").asText(), (long) (obj.get("battleError").get("remaining").asLong() / Math.pow(10, 6)));
                 default:
                     // TODO encapsulate the received message
                     throw new InfoException("default exception");
