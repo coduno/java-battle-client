@@ -15,7 +15,7 @@ For the move action you must pass a [direction](https://github.com/coduno/java-b
   GameObject me = helper.move(Direction.LEFT);
 ```
 ###### attack
-For the move action you must pass a [direction](https://github.com/coduno/java-battle-client/blob/master/src/main/java/model/Direction.java)
+For the attack action you must pass a [direction](https://github.com/coduno/java-battle-client/blob/master/src/main/java/model/Direction.java)
 
 ```java
  helper.attack(Direction.LEFT);
@@ -36,7 +36,7 @@ You can request the your stats at any time.
 ###### map
 You can request the map at any time.
 ```java
-  List<Entity> map = helper.map();
+  Map map = helper.map();
 ```
 ### Exception info
 You can receive multiple types of exceptions.
