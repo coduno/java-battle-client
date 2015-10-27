@@ -1,10 +1,7 @@
 import exceptions.BehaviourException;
 import exceptions.CooldownException;
 import exceptions.InfoException;
-import model.Direction;
-import model.Entity;
-import model.GameObject;
-import model.PlayerType;
+import model.*;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -40,10 +37,10 @@ public class BattleHelper {
         return mapper.readValue(response.getEntity().getContent(), GameObject.class);
     }
 
-    public List<Entity> map() throws Exception {
+    public Map map() throws Exception {
         HttpResponse response = get("/map");
 
-        return mapper.readValue(response.getEntity().getContent(), mapper.getTypeFactory().constructCollectionType(List.class, Entity.class));
+        return mapper.readValue(response.getEntity().getContent(), Map.class);
     }
 
     public GameObject join(String nick, PlayerType type) throws Exception {

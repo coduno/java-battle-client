@@ -19,6 +19,7 @@ public class GameObject {
     private DateTime moveTime;
     private Long moveSpeed;
     private DateTime attackTime;
+    private Long attackSpeed;
     private List<Spell> spells;
     private Integer level;
 
@@ -102,9 +103,52 @@ public class GameObject {
         this.level = level;
     }
 
+    public Long getAttackSpeed() {
+        return attackSpeed;
+    }
+
+    public void setAttackSpeed(Long attackSpeed) {
+        this.attackSpeed = attackSpeed;
+    }
+
     @Override
     public String toString() {
-        return String.format("(nick %s, hp %s, kills %s, deaths %s, position %s, moveTime %s, moveSpeed %s, attackTime %s, spells %s)",
-                nick, hp, kills, deaths, position, moveTime, moveSpeed, attackTime, spells);
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("(");
+        if(nick != null){
+            stringBuilder.append(String.format("nick %s,", nick));
+        }
+        if(hp != null){
+            stringBuilder.append(String.format("hp %s,", hp));
+        }
+        if(kills != null){
+            stringBuilder.append(String.format("kills %s,", kills));
+        }
+        if(deaths != null){
+            stringBuilder.append(String.format("deaths %s,", deaths));
+        }
+        if(position != null){
+            stringBuilder.append(String.format("position %s,", position));
+        }
+        if(moveTime != null){
+            stringBuilder.append(String.format("moveTime %s,", moveTime));
+        }
+        if(moveTime != null){
+            stringBuilder.append(String.format("moveTime %s,", moveTime));
+        }
+        if(moveSpeed != null){
+            stringBuilder.append(String.format("moveSpeed %s,", moveSpeed));
+        }
+        if(attackTime != null){
+            stringBuilder.append(String.format("attackTime %s,", attackTime));
+        }
+        if(attackSpeed != null){
+            stringBuilder.append(String.format("attackSpeed %s,", attackSpeed));
+        }
+        if(spells != null){
+            stringBuilder.append(String.format("spells %s,", spells));
+        }
+        stringBuilder.append(")");
+        return stringBuilder.toString();
     }
 }
