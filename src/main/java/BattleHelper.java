@@ -54,6 +54,8 @@ public class BattleHelper {
     }
 
     public void attack(Direction direction) throws Exception {
+        // BUG: attack blocks if we don`t build the client every time
+        client = HttpClientBuilder.create().build();
         post("/attack", new DirectionParam(direction));
     }
 
