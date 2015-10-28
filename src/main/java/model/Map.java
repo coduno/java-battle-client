@@ -6,14 +6,14 @@ import java.util.List;
  * Created by vbalan on 10/27/2015.
  */
 public class Map {
-    private List<Entity> gameObjects;
+    private List<GameObject> gameObjects;
     private PositionInfo players, healthFountains;
 
-    public List<Entity> getGameObjects() {
+    public List<GameObject> getGameObjects() {
         return gameObjects;
     }
 
-    public void setGameObjects(List<Entity> gameObjects) {
+    public void setGameObjects(List<GameObject> gameObjects) {
         this.gameObjects = gameObjects;
     }
 

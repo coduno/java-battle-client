@@ -22,6 +22,7 @@ public class GameObject {
     private Long attackSpeed;
     private List<Spell> spells;
     private Integer level;
+    private String type;
 
     public String getNick() {
         return nick;
@@ -109,6 +110,14 @@ public class GameObject {
 
     public void setAttackSpeed(Long attackSpeed) {
         this.attackSpeed = attackSpeed;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     @Override
