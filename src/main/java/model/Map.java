@@ -7,7 +7,7 @@ import java.util.List;
  */
 public class Map {
     private List<Entity> gameObjects;
-    private Integer left, right, up, down;
+    private PositionInfo players, healthFountains;
 
     public List<Entity> getGameObjects() {
         return gameObjects;
@@ -17,40 +17,24 @@ public class Map {
         this.gameObjects = gameObjects;
     }
 
-    public Integer getLeft() {
-        return left;
+    public PositionInfo getPlayers() {
+        return players;
     }
 
-    public void setLeft(Integer left) {
-        this.left = left;
+    public void setPlayers(PositionInfo players) {
+        this.players = players;
     }
 
-    public Integer getRight() {
-        return right;
+    public PositionInfo getHealthFountains() {
+        return healthFountains;
     }
 
-    public void setRight(Integer right) {
-        this.right = right;
-    }
-
-    public Integer getUp() {
-        return up;
-    }
-
-    public void setUp(Integer up) {
-        this.up = up;
-    }
-
-    public Integer getDown() {
-        return down;
-    }
-
-    public void setDown(Integer down) {
-        this.down = down;
+    public void setHealthFountains(PositionInfo healthFountains) {
+        this.healthFountains = healthFountains;
     }
 
     @Override
     public String toString() {
-        return String.format("(gameObjects %s, left %s, right %s, up %s, down %s)", gameObjects, left, right ,up, down);
+        return String.format("(gameObjects %s)", gameObjects);
     }
 }
