@@ -43,8 +43,8 @@ public class BattleHelper {
         return mapper.readValue(response.getEntity().getContent(), Map.class);
     }
 
-    public GameObject join(String nick, PlayerType type) throws Exception {
-        HttpResponse response = post("/join", new NickParam(nick, type));
+    public GameObject join(PlayerType type) throws Exception {
+        HttpResponse response = post("/join", new JoinParam(type));
         return mapper.readValue(response.getEntity().getContent(), GameObject.class);
     }
 
@@ -60,6 +60,8 @@ public class BattleHelper {
     }
 
     public void spell(int spell, Direction direction, String extra) throws Exception {
+        // BUG: spell blocks if we don`t build the client every time
+        client = HttpClientBuilder.create().build();
         post("/spell", new SpellParams(spell, direction, extra));
     }
 
@@ -85,7 +87,7 @@ public class BattleHelper {
                 case "InfoError":
                     throw new InfoException(obj.get("battleError").get("message").asText());
                 case "BehaviourError":
-                    throw new CooldownException(obj.get("battleError").get("behaviour").asText(), (long) (obj.get("battleError").get("remaining").asLong() / Math.pow(10, 6)));
+                    throw new BehaviourException(obj.get("battleError").get("behaviour").asText(), (long) (obj.get("battleError").get("remaining").asLong() / Math.pow(10, 6)));
                 default:
                     // TODO encapsulate the received message
                     throw new InfoException("default exception");
@@ -147,21 +149,11 @@ public class BattleHelper {
         }
     }
 
-    private class NickParam {
-        private String nick;
+    private class JoinParam {
         private PlayerType type;
 
-        private NickParam(String nick, PlayerType type) {
-            this.nick = nick;
+        private JoinParam(PlayerType type) {
             this.type = type;
-        }
-
-        public String getNick() {
-            return nick;
-        }
-
-        public void setNick(String nick) {
-            this.nick = nick;
         }
 
         public PlayerType getType() {

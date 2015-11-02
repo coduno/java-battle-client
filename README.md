@@ -2,11 +2,11 @@
 
 ### Commands
 ###### join
-After you registered and received a token you can join the battle. To join you must pass your nickname and a [player type](https://github.com/coduno/java-battle-client/blob/master/src/main/java/model/PlayerType.java)
+After you registered and received a token you can join the battle. To join you must pass a [player type](https://github.com/coduno/java-battle-client/blob/master/src/main/java/model/PlayerType.java)
 
 ```java
   BattleHelper helper = new BattleHelper(TOKEN, SERVER_URL);
-  GameObject me = helper.join("username", PlayerType.GOPHER);
+  GameObject me = helper.join(PlayerType.GOPHER);
 ```
 ###### move
 For the move action you must pass a [direction](https://github.com/coduno/java-battle-client/blob/master/src/main/java/model/Direction.java)
