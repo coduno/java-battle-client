@@ -1,4 +1,4 @@
-package model;
+package uno.cod.battle.client.model;
 
 /**
  * Created by vbalan on 10/28/2015.

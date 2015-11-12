@@ -1,4 +1,4 @@
-package exceptions;
+package uno.cod.battle.client.exceptions;
 
 /**
  * Created by vbalan on 10/22/2015.

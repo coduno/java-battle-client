@@ -1,6 +1,5 @@
-package model;
+package uno.cod.battle.client.model;
 
-import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.joda.time.DateTime;
 

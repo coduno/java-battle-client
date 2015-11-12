@@ -1,11 +1,11 @@
-package model;
+package uno.cod.battle.client.model;
 
 import java.util.List;
 
 /**
  * Created by vbalan on 10/27/2015.
  */
-public class Map {
+public class BattleMap {
     private List<GameObject> gameObjects;
     private PositionInfo players, healthFountains;
 

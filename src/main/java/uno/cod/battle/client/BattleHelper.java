@@ -1,18 +1,19 @@
-import exceptions.BehaviourException;
-import exceptions.CooldownException;
-import exceptions.InfoException;
-import model.*;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
+package uno.cod.battle.client;
+
+import uno.cod.battle.client.exceptions.BehaviourException;
+import uno.cod.battle.client.exceptions.CooldownException;
+import uno.cod.battle.client.exceptions.InfoException;
+import uno.cod.battle.client.model.*;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
-
-import java.util.List;
 
 /**
  * Created by vbalan on 10/22/2015.
@@ -21,7 +22,7 @@ public class BattleHelper {
     private final String token;
     private final String serverUrl;
     private ObjectMapper mapper;
-    private HttpClient client;
+    private CloseableHttpClient client;
 
     public BattleHelper(String token, String serverUrl) {
         this.token = token;
@@ -31,56 +32,67 @@ public class BattleHelper {
     }
 
     public GameObject me() throws Exception {
-        HttpResponse response = get("/me");
-
-        ObjectMapper mapper = new ObjectMapper();
-        return mapper.readValue(response.getEntity().getContent(), GameObject.class);
+        CloseableHttpResponse response = get("/me");
+        GameObject gameObject = mapper.readValue(response.getEntity().getContent(), GameObject.class);
+        EntityUtils.consume(response.getEntity());
+        response.close();
+        return gameObject;
     }
 
-    public Map map() throws Exception {
-        HttpResponse response = get("/map");
-
-        return mapper.readValue(response.getEntity().getContent(), Map.class);
+    public BattleMap map() throws Exception {
+        CloseableHttpResponse response = get("/battleMap");
+        BattleMap battleMap = mapper.readValue(response.getEntity().getContent(), BattleMap.class);
+        EntityUtils.consume(response.getEntity());
+        response.close();
+        return battleMap;
     }
 
     public GameObject join(PlayerType type) throws Exception {
-        HttpResponse response = post("/join", new JoinParam(type));
-        return mapper.readValue(response.getEntity().getContent(), GameObject.class);
+        CloseableHttpResponse response = post("/join", new JoinParam(type));
+        GameObject gameObject = mapper.readValue(response.getEntity().getContent(), GameObject.class);
+        EntityUtils.consume(response.getEntity());
+        response.close();
+        return gameObject;
     }
 
     public GameObject move(Direction direction) throws Exception {
-        HttpResponse response = post("/move", new DirectionParam(direction));
-        return mapper.readValue(response.getEntity().getContent(), GameObject.class);
+        CloseableHttpResponse response = post("/move", new DirectionParam(direction));
+        GameObject gameObject = mapper.readValue(response.getEntity().getContent(), GameObject.class);
+        EntityUtils.consume(response.getEntity());
+        response.close();
+        return gameObject;
     }
 
     public void attack(Direction direction) throws Exception {
-        // BUG: attack blocks if we don`t build the client every time
-        client = HttpClientBuilder.create().build();
-        post("/attack", new DirectionParam(direction));
+        CloseableHttpResponse response = post("/attack", new DirectionParam(direction));
+        EntityUtils.consume(response.getEntity());
+        response.close();
     }
 
     public void spell(int spell, Direction direction, String extra) throws Exception {
-        // BUG: spell blocks if we don`t build the client every time
-        client = HttpClientBuilder.create().build();
-        post("/spell", new SpellParams(spell, direction, extra));
+        CloseableHttpResponse response = post("/spell", new SpellParams(spell, direction, extra));
+        EntityUtils.consume(response.getEntity());
+        response.close();
     }
 
-    private HttpResponse get(String path) throws Exception {
+    private CloseableHttpResponse get(String path) throws Exception {
         return go(new HttpGet(serverUrl + path));
     }
 
-    private HttpResponse post(String path, Object body) throws Exception {
+    private CloseableHttpResponse post(String path, Object body) throws Exception {
         HttpPost request = new HttpPost(serverUrl + path);
         request.setEntity(new StringEntity(mapper.writeValueAsString(body)));
         return go(request);
     }
 
-    private HttpResponse go(HttpRequestBase request) throws Exception {
+    private CloseableHttpResponse go(HttpRequestBase request) throws Exception {
         request.addHeader("Authorization", "Token " + token);
 
-        HttpResponse response = client.execute(request);
+        CloseableHttpResponse response = client.execute(request);
         if (response.getStatusLine().getStatusCode() != 200) {
             JsonNode obj = mapper.readTree(response.getEntity().getContent());
+            EntityUtils.consume(response.getEntity());
+            response.close();
             switch (obj.get("type").asText()) {
                 case "CooldownError":
                     throw new CooldownException(obj.get("battleError").get("message").asText(), (long) (obj.get("battleError").get("remaining").asLong() / Math.pow(10, 6)));

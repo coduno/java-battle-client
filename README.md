@@ -33,10 +33,10 @@ You can request the your stats at any time.
   GameObject me = helper.me();
 ```
 
-###### map
-You can request the map at any time.
+###### battleMap
+You can request the battleMap at any time.
 ```java
-  Map map = helper.map();
+  Map battleMap = helper.battleMap();
 ```
 ### Exception info
 You can receive multiple types of exceptions.
