@@ -40,7 +40,7 @@ public class BattleHelper {
     }
 
     public BattleMap map() throws Exception {
-        CloseableHttpResponse response = get("/battleMap");
+        CloseableHttpResponse response = get("/map");
         BattleMap battleMap = mapper.readValue(response.getEntity().getContent(), BattleMap.class);
         EntityUtils.consume(response.getEntity());
         response.close();
