@@ -24,6 +24,10 @@ public class BattleHelper {
     private ObjectMapper mapper;
     private CloseableHttpClient client;
 
+    public BattleHelper(String token) {
+        this(token, "battle.cod.uno");
+    }
+
     public BattleHelper(String token, String serverUrl) {
         this.token = token;
         this.serverUrl = serverUrl;
