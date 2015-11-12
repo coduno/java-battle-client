@@ -9,6 +9,10 @@ public class BattleMap {
     private List<GameObject> gameObjects;
     private PositionInfo players, healthFountains;
 
+    /**
+     *
+     * @return the game objects that are in range 10 to you.
+     */
     public List<GameObject> getGameObjects() {
         return gameObjects;
     }
