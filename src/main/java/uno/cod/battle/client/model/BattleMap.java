@@ -6,39 +6,52 @@ import java.util.List;
  * Created by vbalan on 10/27/2015.
  */
 public class BattleMap {
-    private List<GameObject> gameObjects;
-    private PositionInfo players, healthFountains;
+    private PositionInfo playersInfo, healthFountainsInfo;
+    private List<Player> players;
+    private List<HealthFountain> healthFountains;
+    private List<Obstacle> obstacles;
 
     /**
      *
      * @return the game objects that are in range 10 to you.
      */
-    public List<GameObject> getGameObjects() {
-        return gameObjects;
+    public PositionInfo getPlayersInfo() {
+        return playersInfo;
     }
 
-    public void setGameObjects(List<GameObject> gameObjects) {
-        this.gameObjects = gameObjects;
+    public void setPlayersInfo(PositionInfo playersInfo) {
+        this.playersInfo = playersInfo;
     }
 
-    public PositionInfo getPlayers() {
+    public PositionInfo getHealthFountainsInfo() {
+        return healthFountainsInfo;
+    }
+
+    public void setHealthFountainsInfo(PositionInfo healthFountainsInfo) {
+        this.healthFountainsInfo = healthFountainsInfo;
+    }
+
+    public List<Player> getPlayers() {
         return players;
     }
 
-    public void setPlayers(PositionInfo players) {
+    public void setPlayers(List<Player> players) {
         this.players = players;
     }
 
-    public PositionInfo getHealthFountains() {
+    public List<HealthFountain> getHealthFountains() {
         return healthFountains;
     }
 
-    public void setHealthFountains(PositionInfo healthFountains) {
+    public void setHealthFountains(List<HealthFountain> healthFountains) {
         this.healthFountains = healthFountains;
     }
 
-    @Override
-    public String toString() {
-        return String.format("(gameObjects %s)", gameObjects);
+    public List<Obstacle> getObstacles() {
+        return obstacles;
+    }
+
+    public void setObstacles(List<Obstacle> obstacles) {
+        this.obstacles = obstacles;
     }
 }
