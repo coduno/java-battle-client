@@ -147,7 +147,7 @@ public class BattleHelper {
                 case "BehaviourError":
                     throw new BehaviourException(obj.get("battleError").get("behaviour").asText(),
                             (long) (obj.get("battleError").get("remaining").asLong() / Math.pow(10, 6)),
-                            BehaviourCode.valueOf(obj.get("battleError").get("code").asText()));
+                            BehaviourCode.valueOf(obj.get("battleError").get("behaviour").asText()));
                 default:
                     // TODO encapsulate the received message
                     throw new InfoException("default exception");
