@@ -16,6 +16,9 @@ import org.apache.http.util.EntityUtils;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by vbalan on 10/22/2015.
  */
@@ -58,7 +61,35 @@ public class BattleHelper {
      */
     public BattleMap map() throws Exception {
         CloseableHttpResponse response = get("/map");
-        BattleMap battleMap = mapper.readValue(response.getEntity().getContent(), BattleMap.class);
+        BattleMap battleMap = new BattleMap();
+
+        List<Obstacle> obstacles = new ArrayList<>();
+        List<HealthFountain> healthFountains = new ArrayList<>();
+        List<Player> players = new ArrayList<>();
+
+
+        JsonNode json = mapper.readTree(response.getEntity().getContent());
+        battleMap.setPlayersInfo(mapper.readValue(json.get("players"), PositionInfo.class));
+        battleMap.setHealthFountainsInfo(mapper.readValue(json.get("healthFountains"), PositionInfo.class));
+
+        JsonNode objects = json.get("gameObjects");
+        for(int i = 0;i<objects.size();i++){
+            JsonNode object = objects.get(i);
+            switch(object.get("type").asText()){
+                case "OBSTACLE":
+                    obstacles.add(mapper.readValue(object, Obstacle.class));
+                    break;
+                case "HEALTH_FOUNTAIN":
+                    healthFountains.add(mapper.readValue(object, HealthFountain.class));
+                    break;
+                default:
+                    players.add(mapper.readValue(object, Player.class));
+            }
+        }
+        battleMap.setPlayers(players);
+        battleMap.setHealthFountains(healthFountains);
+        battleMap.setObstacles(obstacles);
+
         EntityUtils.consume(response.getEntity());
         response.close();
         return battleMap;
