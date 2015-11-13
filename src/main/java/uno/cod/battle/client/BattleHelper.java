@@ -26,7 +26,7 @@ public class BattleHelper {
     private CloseableHttpClient client;
 
     public BattleHelper(String token) {
-        this(token, "battle.cod.uno");
+        this(token, "http://battle.cod.uno:8080");
     }
 
     public BattleHelper(String token, String serverUrl) {
