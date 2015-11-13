@@ -71,6 +71,10 @@ public class GameObject {
         this.moveTime = moveTime;
     }
 
+    /**
+     *
+     * @return the base move speed in nanoseconds
+     */
     public Long getMoveSpeed() {
         return moveSpeed;
     }
@@ -107,6 +111,10 @@ public class GameObject {
         return attackSpeed;
     }
 
+    /**
+     *
+     * @return the base attack speed in nanoseconds
+     */
     public void setAttackSpeed(Long attackSpeed) {
         this.attackSpeed = attackSpeed;
     }

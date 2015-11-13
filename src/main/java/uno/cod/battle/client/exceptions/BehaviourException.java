@@ -12,7 +12,10 @@ public class BehaviourException extends BattleException {
         this.remaining = remaining;
         this.code = code;
     }
-
+    /**
+     *
+     * @return the remaining time in milliseconds
+     */
     public Long getRemaining() {
         return remaining;
     }

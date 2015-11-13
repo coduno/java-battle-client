@@ -20,6 +20,10 @@ public class Spell {
         this.name = name;
     }
 
+    /**
+     *
+     * @return the base cooldown in nanoseconds
+     */
     public Long getCooldown() {
         return cooldown;
     }

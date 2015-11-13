@@ -11,6 +11,10 @@ public class CooldownException extends BattleException {
         this.cooldown = cooldown;
     }
 
+    /**
+     *
+     * @return the remaining cooldown in milliseconds
+     */
     public Long getCooldown() {
         return cooldown;
     }
